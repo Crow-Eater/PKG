@@ -51,25 +51,38 @@ void Widget::on_listView_doubleClicked(const QModelIndex &index)
     else if(!fileInfo.isDir())
 
     {
-                QDir dir = fileInfo.dir();
-                QString fileExt = model->fileName(index);
-                QImageWriter a(model->filePath(index));
-                QString resolution = "";
-                QImage img (model->filePath(index));
+        std::map<QString, QString> compression;
 
-                for(int i = fileExt.lastIndexOf('.'); i < fileExt.size(); i++)
-                {
-                    resolution.append(fileExt[i]);
-                }
-                if (resolution == ".JPG" || resolution == ".gif" || resolution == ".tif" || resolution == ".bmp" ||
+        compression["bmp"] = "без сжатия";
+        compression["BMP"] = "без сжатия";
+        compression["gif"] = "LZW сжатие";
+        compression["GIF"] = "LZW сжатие";
+        compression["png"] = "Deflate сжатие";
+        compression["PNG"] = "Deflate сжатие";
+        compression["jpg"] = "JPEG сжатие";
+        compression["JPG"] = "JPEG сжатие";
+        compression["tiff"] = "ZIP/LZW/JPEG сжатие";
+        compression["pcx"] = "RLE сжатие";
+
+        QDir dir = fileInfo.dir();
+        QString fileExt = model->fileName(index);
+        QImageWriter a(model->filePath(index));
+        QString resolution = "";
+        QImage img (model->filePath(index));
+
+        for(int i = fileExt.lastIndexOf('.'); i < fileExt.size(); i++)
+        {
+            resolution.append(fileExt[i]);
+        }
+        if (resolution == ".jpg" || resolution == ".JPG" || resolution == ".gif" || resolution == ".tif" || resolution == ".bmp" ||
                         resolution == ".png" || resolution == ".pcx" || resolution == ".BMP")
-                {
-                     ui->FileName->setText(model->fileName(index));
-                     ui->Size->setText(QString::number(img.size().width() )+ "x" + QString::number(img.size().height() ));
-                     ui->Contraction->setText(fileInfo.suffix());
-                     ui->Color_depth->setText(QString::number(img.bitPlaneCount()));
-                     ui->Resolution->setText(QString::number(img.physicalDpiX()));
-                }
+        {
+            ui->FileName->setText(model->fileName(index));
+            ui->Size->setText(QString::number(img.size().width() )+ "x" + QString::number(img.size().height() ));
+            ui->Contraction->setText(compression[fileInfo.suffix()]);
+            ui->Color_depth->setText(QString::number(img.bitPlaneCount()));
+            ui->Resolution->setText(QString::number(img.physicalDpiX()));
+        }
 
     }
 
@@ -109,9 +122,15 @@ void Widget::on_multiChoice_clicked()
     std::map<QString, QString> compression;
 
     compression["bmp"] = "без сжатия";
+    compression["BMP"] = "без сжатия";
     compression["gif"] = "LZW сжатие";
+    compression["GIF"] = "LZW сжатие";
     compression["png"] = "Deflate сжатие";
+    compression["PNG"] = "Deflate сжатие";
     compression["jpg"] = "JPEG сжатие";
+    compression["jpeg"] = "JPEG сжатие";
+    compression["JPG"] = "JPEG сжатие";
+    compression["JPEG"] = "JPEG сжатие";
     compression["tiff"] = "ZIP/LZW/JPEG сжатие";
     compression["pcx"] = "RLE сжатие";
 
@@ -130,7 +149,7 @@ void Widget::on_multiChoice_clicked()
             resolution.append(temp.fileName()[i]);
         }
         if (resolution != ".jpg" && resolution != ".JPG" && resolution != ".gif" && resolution != ".tif" && resolution != ".bmp" &&
-                resolution != ".png" && resolution != ".pcx" && resolution != ".BMP")
+                resolution != ".png" && resolution != ".pcx" && resolution != ".BMP" && resolution != ".jpeg" && resolution != ".JPEG")
 
         {
             twInfo->setRowCount(twInfo->rowCount()-1);
