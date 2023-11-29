@@ -75,7 +75,7 @@ void Widget::on_listView_doubleClicked(const QModelIndex &index)
             resolution.append(fileExt[i]);
         }
         if (resolution == ".jpg" || resolution == ".JPG" || resolution == ".gif" || resolution == ".tif" || resolution == ".bmp" ||
-                        resolution == ".png" || resolution == ".pcx" || resolution == ".BMP")
+                        resolution == ".png" || resolution == ".pcx" || resolution == ".BMP" || resolution == ".JPEG" || resolution == ".jpeg")
         {
             ui->FileName->setText(model->fileName(index));
             ui->Size->setText(QString::number(img.size().width() )+ "x" + QString::number(img.size().height() ));
@@ -212,7 +212,7 @@ bool column4(QTableWidgetItem* item1, QTableWidgetItem* item2)
 
 bool column5(QTableWidgetItem* item1, QTableWidgetItem* item2)
 {
-    return item1->text().toInt() > item2->text().toInt();
+    return item1->text() > item2->text();
 }
 
 vector<function<bool(QTableWidgetItem*, QTableWidgetItem*)>> functions = {column1, column2, column3, column4, column5};
