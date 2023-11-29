@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>polygon.txt</file>
+        <file>segments.txt</file>
+    </qresource>
+</RCC>
