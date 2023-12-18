@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/blur.bmp</file>
+        <file>images/gaussian.bmp</file>
+        <file>images/histogram.bmp</file>
+        <file>images/otsu.bmp</file>
+        <file>images/adaptive.jpg</file>
+        <file>images/adaptive1.jpg</file>
+    </qresource>
+</RCC>
